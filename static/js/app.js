@@ -3,8 +3,6 @@ let url = 'https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1
 //Use D3 to read the JSON file
 d3.json(url).then(function(data) {
     console.log(data);
-   // const jsonDataString = JSON.stringify(data, null, 2);
-    //alert(jsonDataString);
 });
 
 
@@ -32,15 +30,10 @@ function populateDropdown() {
 }
 
 function optionChanged(selectedSample) {
-    // You can perform additional actions when the select changes
-    //alert("Selected value: " + d3.select("#selDataset").node().value);
     updateBarChart(selectedSample);
 }
 
 function updateBarChart(selectedSample) {
-    // Get the selected sample value from the dropdown
-    // const selectedSample = d3.select("#selDataset").node().value;
-
     // Fetch the data and update the bar chart
     d3.json(url).then(function(data) {
         const selectedData = data.samples.find(sample => sample.id === selectedSample);
@@ -50,9 +43,7 @@ function updateBarChart(selectedSample) {
         if(demographicData){
         //Populate Demographic information
                 const demographicInfo = d3.select("#sample-metadata");
-                // Clear previous content
                 
-//alert(demographicData.gender);
                 const gender = demographicData.gender;
                 const age = demographicData.age;
                 const location = demographicData.location;
@@ -70,34 +61,6 @@ function updateBarChart(selectedSample) {
                 demographicInfo.append("tr").text(`wfreq: ${wfreq}`);
     }
                 
-        // // Sort the data by sample_values and select the top 10
-        // const sortedData = selectedData.sample_values
-        //     .map((value, index) => ({ value, id: selectedData.otu_ids[index], label: selectedData.otu_labels[index] }))
-        //     .sort((a, b) => b.value - a.value)
-        //     .slice(0, 10);
-
-
-
-        // // Create a horizontal bar chart
-        // const barChart = d3.select("#bar");
-        // barChart.html(""); // Clear previous content
-
-        //                 // Set up scales
-        //                 const xScale = d3.scaleLinear()
-        //                 .domain([0, d3.max(selectedData.sample_values)])
-        //                 .range([0, 500]); // Adjust the range as needed
-
-        // barChart.selectAll("div")
-        //     .data(sortedData)
-        //     .enter()
-        //     .append("div")
-        //     //.style("width", d => `${d.value}px`)
-        //     .style("width", d => `${xScale(selectedData.sample_values[d])}px`)            
-        //     //.text(d => `${d.id}: ${d.value}`)
-        //     .text(d => `OTU ${d.id}`)
-        //     .attr("title", d => d.label)
-        //     .style("background-color", "steelblue")
-        //     .style("margin", "4px");
         otu_ids= selectedData.otu_ids
         otu_labels= selectedData.otu_labels
         sample_values= selectedData.sample_values
@@ -116,14 +79,11 @@ function updateBarChart(selectedSample) {
           };
           
           Plotly.newPlot('bar', barData, barlayout);
+
 // Use otu_ids for the x values.
-
 // Use sample_values for the y values.
-
 // Use sample_values for the marker size.
-
 // Use otu_ids for the marker colors.
-
 // Use otu_labels for the text values.
 
           var bubbleData = [{
@@ -145,9 +105,6 @@ function updateBarChart(selectedSample) {
           
           Plotly.newPlot('bubble', bubbleData, bubblelayout);
           
-
-
-
 
     }).catch(function(error) {
         console.error("Error reading JSON file:", error);
